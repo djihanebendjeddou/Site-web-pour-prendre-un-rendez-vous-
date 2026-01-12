@@ -1,0 +1,16 @@
+# منع الوصول المباشر للملفات الحساسة
+<FilesMatch "\.(sql|env|log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# إعادة التوجيه لصفحة غير موجودة
+ErrorDocument 404 /index.php
+
+# تفعيل إعادة الكتابة
+Options +FollowSymLinks
+RewriteEngine On
+
+# إعادة توجيه بدون www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
